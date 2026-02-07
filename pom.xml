@@ -56,7 +56,7 @@
     <commons.site.path>commons-proxy</commons.site.path>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/dormant/${commons.site.path}</commons.scmPubUrl>
 
-    <asm.version>5.0.1</asm.version>
+    <asm.version>5.2</asm.version>
     <ant.version>1.9.3</ant.version>
     <checkstyle.version>2.11</checkstyle.version>
     <!-- Unfortunately reporting sections ignore pluginManagement settings, so define the versions here -->
@@ -91,12 +91,12 @@
     <developer>
       <name>Jörg Hohwiller</name>
       <email>hohwille@users.sourceforge.net</email>
-      <organization />
+      <organization/>
       <roles>
         <role>mavenizer</role>
         <role>developer</role>
       </roles>
-      <url />
+      <url/>
     </developer>
     <developer>
       <id>mbenson</id>
@@ -113,7 +113,7 @@
     <contributor>
       <name>Howard M. Lewis Ship</name>
       <email>hlship@apache.org</email>
-      <organization />
+      <organization/>
       <roles>
         <role>advisor</role>
       </roles>
@@ -122,7 +122,7 @@
     <contributor>
       <name>Jörg Schaible</name>
       <email>joerg.schaible@gmx.de</email>
-      <organization />
+      <organization/>
       <roles>
         <role>advisor</role>
       </roles>
@@ -336,77 +336,77 @@
             <configuration>
               <target xmlns:if="ant:if" xmlns:unless="ant:unless">
                 <presetdef name="truth">
-                  <condition value="true" else="false" />
+                  <condition value="true" else="false"/>
                 </presetdef>
 
                 <macrodef name="seek">
-                  <attribute name="name" />
-                  <attribute name="addto" />
+                  <attribute name="name"/>
+                  <attribute name="addto"/>
                   <sequential>
-                    <union id="@{name}-ws" />
-                    <step dir="${user.dir}" name="@{name}" addto="@{addto}" ws="@{name}-ws" />
+                    <union id="@{name}-ws"/>
+                    <step dir="${user.dir}" name="@{name}" addto="@{addto}" ws="@{name}-ws"/>
                   </sequential>
                 </macrodef>
 
                 <macrodef name="step">
-                  <attribute name="name" />
-                  <attribute name="dir" />
-                  <attribute name="addto" />
-                  <attribute name="ws" />
+                  <attribute name="name"/>
+                  <attribute name="dir"/>
+                  <attribute name="addto"/>
+                  <attribute name="ws"/>
                   <sequential>
-                    <local name="seenDir" />
+                    <local name="seenDir"/>
                     <truth property="seenDir">
                       <resourcecount when="gt" count="0">
                         <intersect id="intersection">
-                          <resources refid="@{ws}" />
-                          <file name="@{dir}" />
+                          <resources refid="@{ws}"/>
+                          <file name="@{dir}"/>
                         </intersect>
                       </resourcecount>
                     </truth>
                     <sequential unless:true="${seenDir}">
                       <augment id="@{ws}">
-                        <file file="@{dir}" />
+                        <file file="@{dir}"/>
                       </augment>
-                      <local name="exists" />
+                      <local name="exists"/>
                       <truth property="exists">
-                        <available file="@{dir}/@{name}" />
+                        <available file="@{dir}/@{name}"/>
                       </truth>
 
                       <sequential if:true="${exists}">
                         <augment id="@{addto}">
-                          <file file="@{dir}/@{name}" />
+                          <file file="@{dir}/@{name}"/>
                         </augment>
                       </sequential>
                       <sequential unless:true="${exists}">
-                        <local name="parent.dir" />
-                        <dirname property="parent.dir" file="@{dir}" />
-                        <step dir="${parent.dir}" name="@{name}" addto="@{addto}" ws="@{ws}" />
+                        <local name="parent.dir"/>
+                        <dirname property="parent.dir" file="@{dir}"/>
+                        <step dir="${parent.dir}" name="@{name}" addto="@{addto}" ws="@{ws}"/>
                       </sequential>
                     </sequential>
                   </sequential>
                 </macrodef>
 
                 <truth property="pom-only">
-                  <equals arg1="${project.packaging}" arg2="pom" />
+                  <equals arg1="${project.packaging}" arg2="pom"/>
                 </truth>
                 <sequential unless:true="${pom-only}">
-                  <union id="notices" />
-                  <seek name="LICENSE.txt" addto="notices" />
-                  <seek name="NOTICE.txt" addto="notices" />
+                  <union id="notices"/>
+                  <seek name="LICENSE.txt" addto="notices"/>
+                  <seek name="NOTICE.txt" addto="notices"/>
 
-                  <mkdir dir="${project.build.directory}/generated-resources/notices/META-INF" />
+                  <mkdir dir="${project.build.directory}/generated-resources/notices/META-INF"/>
                   <copy verbose="true" todir="${project.build.directory}/generated-resources/notices/META-INF">
-                    <resources refid="notices" />
+                    <resources refid="notices"/>
                   </copy>
 
-                  <mkdir dir="${project.build.directory}/generated-test-resources/notices/META-INF" />
+                  <mkdir dir="${project.build.directory}/generated-test-resources/notices/META-INF"/>
                   <copy verbose="true" todir="${project.build.directory}/generated-test-resources/notices/META-INF">
-                    <resources refid="notices" />
+                    <resources refid="notices"/>
                   </copy>
 
-                  <mkdir dir="${project.build.directory}/apidocs/META-INF" />
+                  <mkdir dir="${project.build.directory}/apidocs/META-INF"/>
                   <copy verbose="true" todir="${project.build.directory}/apidocs/META-INF">
-                    <resources refid="notices" />
+                    <resources refid="notices"/>
                   </copy>
                 </sequential>
               </target>
@@ -672,7 +672,7 @@
                 <!-- disable assembly:single from commons-parent
                      release profile; multimodule assembly handled
                      by dist module -->
-                <phase />
+                <phase/>
               </execution>
             </executions>
           </plugin>
@@ -683,7 +683,7 @@
               <execution>
                 <id>create-source-jar</id>
                 <!-- suppress execution specified by parent profile -->
-                <phase />
+                <phase/>
               </execution>
             </executions>
           </plugin>
